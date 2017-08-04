@@ -1,87 +1,72 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Galaxia from './componentes/galaxia'
+import ListaJedi from './componentes/listaJedi'
 
-class JediInfo extends React.Component {
-  constructor(props) {
-    super(props)
-    this._handleJediClick = this._handleJediClick.bind(this)
-  }
-
-  _handleJediClick(e) {
-    this.props.seleccionarJedi(this.props.jedi)
-  }
-
-  render() {
-    const clase = this.props.jedi.seleccionado ? 'jediSeleccionado' : 'heckNo'
-    return (
-      <li onClick={this._handleJediClick} className={clase}>
-        {this.props.jedi.name}, {clase}
-      </li>
-    )
-  }
-}
-
-class JediList extends React.Component {
-
-  render(){
-    const listaJedis = this.props.listaJedis.map( (jedi) => {
-      return <JediInfo jedi={jedi} seleccionarJedi={this.props.seleccionarJedi} key={jedi.id}/>
-    })
-    return(
-      <ul>
-        {listaJedis}
-      </ul>
-    )
-  }
-}
-
-class Root extends React.Component {
+class App extends React.Component {
 
   constructor(props) {
-    super(props)
-    this._obtenerJedis = this._obtenerJedis.bind(this)
-    this._seleccionarJedi = this._seleccionarJedi.bind(this)
+    super(props);
+    this._obtenerJedis = this._obtenerJedis.bind(this);
+    this._obtenerPlanetas = this._obtenerPlanetas.bind(this);
+    this._moverJedi = this._moverJedi.bind(this);
 
-    //this.state = { listaJedis : [] }
-
-    this.state = { listaJedis : [{id: 1, name: 'ObiWan', seleccionado: false}] }
-  }
-
-  _seleccionarJedi(jedi) {
-    const listaJedis = this.state.listaJedis
-    const jediPos = listaJedis.indexOf(jedi)
-
-    if (jediPos == -1 || listaJedis[jediPos].seleccionado) {
-      return
+    this.state = { 
+      jedis : [],
+      planetas: [],
+      arrastre: null
     }
-
-    listaJedis[jediPos].seleccionado = true
-
-    this.setState = { listaJedis : listaJedis }
   }
 
   _obtenerJedis() {
-    let listaJedis = []
+    let jedis = 
+    [
+      {id: 0, nombre: 'Obiwan Kenobi'},
+      {id: 1, nombre: 'Negro Piñera'},
+      {id: 2, nombre: 'Lucho Jara'}
+    ];
 
-    // TODO: Programar la API!!!
-    fetch( '' , (data) => {
-      listaJedis = data;
-    })
+    this.setState({ jedis : jedis });
+  }
 
-    this.setState({ listaJedis : listaJedis })
+  _obtenerPlanetas() {
+    let planetas =
+    [
+      {id:0, nombre: 'Tierra', jedi: null},
+      {id:1, nombre: 'Phobos', jedi: null},
+      {id:2, nombre: 'Pluton', jedi: null}
+    ]
+
+    this.setState({ planetas : planetas });
+  }
+
+  _moverJedi(arrastre) {
+    this.setState({ arrastre : arrastre });
+    console.log(arrastre)
   }
 
   componentDidMount() {
-    //this._obtenerJedis()
+    this._obtenerJedis();
+    this._obtenerPlanetas();
   }
-
 
   render() {
     return (
-      <JediList listaJedis={this.state.listaJedis} seleccionarJedi={this._seleccionarJedi}/>
-    )
+      <container>
+        <ListaJedi
+          jedis={this.state.jedis}
+          moverJedi={this._moverJedi}
+          transferirJedi={this._transefrirJedi}
+        />
+        <Galaxia
+          planetas={this.state.planetas}
+          moverJedi={this._moverJedi}
+          transferirJedi={this._transferirJedi}
+        />
+      </container>
+    );
   }
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
