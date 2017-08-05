@@ -24,17 +24,31 @@ class ListaJedi extends React.Component {
   render(){
     const jedis = this.props.jedis.map( (jedi) => {
       return (
-        <li key={jedi.id}>
+
+
+        <li className="collection-item avatar" key={jedi.id}>
+           <img src={jedi.avatar} className="circle" />
+          <span className="title">
           <Jedi
             manejarArrastre={this._manejarArrastre}
             jedi={jedi}
           />
+          </span>
+          <a className="secondary-content">
+            <i className="material-icons">grade</i>Agilidad:{jedi.agility}
+            <i className="material-icons">grade</i>Fuerza:{jedi.strength}
+            <i className="material-icons">grade</i>Fortaleza:{jedi.resilience}
+            <i className="material-icons">grade</i>Sabiduria:{jedi.wisdom}
+          </a>
         </li>
       );
     });
     return(
       <div>
-        <ul
+
+
+
+        <ul className="collection"
         onDragOver={this._permitirArrastre}
         onDrop={this._transferirJedi}
         >
