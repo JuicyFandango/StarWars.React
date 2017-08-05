@@ -7,6 +7,7 @@ class Galaxia extends React.Component {
       return (
         <Planeta
           key={planeta.id}
+          transferirJedi={this.props.transferirJedi}
           moverJedi={this.props.moverJedi}
           planeta={planeta}
         />
