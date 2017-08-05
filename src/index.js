@@ -22,7 +22,7 @@ class App extends React.Component {
 
   _obtenerJedis() {
     return new Promise( (resolve, reject) => {
-      fetch(`${Config.API_URL}/api/people/occupation/jedi`)
+      fetch(`${Config.API_URL}/api/occupation/jedi/people`)
         .then( response => {
           response.json().then( body => {
             resolve(body);
