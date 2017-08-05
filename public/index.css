@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Starjhol.ttf';
+  font-style: normal;
+  font-weight: 400;
+  src: url("Starjedi.ttf") format('woff2');
+}
+
+
 body {
  /* background-color: rgb(55, 55, 55)*/
+
+}
+
+h1,h2,h3{
+     font-family: 'Starjhol.ttf'!important;
+     
 }
