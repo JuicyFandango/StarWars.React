@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Galaxia from './componentes/galaxia'
 import ListaJedi from './componentes/listaJedi'
+import Config from './config.js'
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this._obtenerJedis = this._obtenerJedis.bind(this);
-    this._obtenerPlanetas = this._obtenerPlanetas.bind(this);
     this._moverJedi = this._moverJedi.bind(this);
     this._transferirJedi = this._transferirJedi.bind(this);
     this._permitirArrastre = this._permitirArrastre.bind(this);
@@ -22,25 +21,33 @@ class App extends React.Component {
   }
 
   _obtenerJedis() {
-    let jedis =
-    [
-      {id: 0, nombre: 'Obiwan Kenobi'},
-      {id: 1, nombre: 'Negro Piñera'},
-      {id: 2, nombre: 'Lucho Jara'}
-    ];
-
-    this.setState({ jedis : jedis });
+    let jedis = []
+    return new Promise( (resolve, reject) => {
+      fetch(`${Config.API_URL}/api/people/occupation/jedi`)
+        .then( response => {
+          response.json().then( body => {
+            resolve(body);
+          })
+        })
+        .catch( (error) => {
+          reject(`Error al obtener jedis: ${error}`);
+        })
+    })
   }
 
   _obtenerPlanetas() {
-    let planetas =
-    [
-      {id:0, nombre: 'Tierra', jedi: null},
-      {id:1, nombre: 'Phobos', jedi: null},
-      {id:2, nombre: 'Pluton', jedi: null}
-    ]
-
-    this.setState({ planetas : planetas });
+    let jedis = []
+    return new Promise((resolve, reject) => {
+      fetch(`${Config.API_URL}/api/planets`)
+        .then(response => {
+          response.json().then(body => {
+            resolve(body);
+          })
+        })
+        .catch((error) => {
+          reject(`Error al obtener jedis: ${error}`);
+        })
+    })
   }
 
   _permitirArrastre(e) {
@@ -93,8 +100,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this._obtenerJedis();
-    this._obtenerPlanetas();
+    this._obtenerJedis().then( jedis => {
+      this.setState({ jedis : jedis })
+    });
+    this._obtenerPlanetas().then( planetas => {
+      this.setState({ planetas : planetas })
+    });
   }
 
   render() {
