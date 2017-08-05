@@ -21,7 +21,6 @@ class App extends React.Component {
   }
 
   _obtenerJedis() {
-    let jedis = []
     return new Promise( (resolve, reject) => {
       fetch(`${Config.API_URL}/api/people/occupation/jedi`)
         .then( response => {
@@ -36,7 +35,6 @@ class App extends React.Component {
   }
 
   _obtenerPlanetas() {
-    let jedis = []
     return new Promise((resolve, reject) => {
       fetch(`${Config.API_URL}/api/planets`)
         .then(response => {
