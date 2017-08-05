@@ -86,7 +86,7 @@ class App extends React.Component {
           if(indicePlanetaArrastre !== -1) {
             planetas[indicePlanetaArrastre].jedi = null;
           } else {
-            const indiceJedi = jedis.indexOf(this.state.arrastre);
+            const indiceJedi = jedis.indexOf(this.state.arrastre.jedi);
             jedis.splice(indiceJedi, 1);
           }
           const indicePlaneta = planetas.findIndex( planeta => planeta.nombre === componente.nombre );
