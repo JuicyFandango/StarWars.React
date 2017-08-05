@@ -35,10 +35,10 @@ class ListaJedi extends React.Component {
           />
           </span>
           <a className="secondary-content">
-            <i className="material-icons">grade</i>Agilidad:{jedi.agility}
-            <i className="material-icons">grade</i>Fuerza:{jedi.strength}
-            <i className="material-icons">grade</i>Fortaleza:{jedi.resilience}
-            <i className="material-icons">grade</i>Sabiduria:{jedi.wisdom}
+            <i className="material-icons">directions_run</i>Agilidad:{jedi.agility}{'  '}
+            <i className="material-icons">pan_tool</i>Fuerza:{jedi.strength}{'  '}
+            <i className="material-icons">security</i>Fortaleza:{jedi.resilience}{'  '}
+            <i className="material-icons">record_voice_over</i>Sabiduria:{jedi.wisdom}{'  '}
           </a>
         </li>
       );

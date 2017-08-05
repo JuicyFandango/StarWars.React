@@ -79,7 +79,8 @@ class App extends React.Component {
 
       default:
         {
-          if(this.state.arrastre.lugar === componente.nombre) {
+          if(
+              this.state.arrastre.lugar === componente.nombre ) {
             break;
           }
           const indicePlanetaArrastre = planetas.findIndex( planeta => planeta.nombre === this.state.arrastre.lugar );
@@ -115,15 +116,15 @@ class App extends React.Component {
        <img width="100" height="85" src="https://www.merchoid.com/wp-content/uploads/2016/02/xreflogo-starwars.jpg.pagespeed.ic.-cU0EJSd2O.jpg" className="App-logo" alt="logo" />
       <ul id="nav-mobile" className="right hide-on-med-and-down">
      
-        <li><a href="badges.html">React</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
       </ul>
     </div>
   </nav>
 
-
+      
        <div className="container">
          <div className="row"> 
+           <h3 className="center">Star Wars Commander</h3>
+      <h5 className="center">Arrastra los jedis hacia los planetas para calcular el porcentaje de exito de la misión</h5>
       <container>
         <br/>
         <ListaJedi
