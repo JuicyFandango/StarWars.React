@@ -38,6 +38,9 @@ class Planeta extends React.Component {
         ) : (
           <a>Vacío</a>
         )}
+        <a className="secondary-content">
+            <i className="material-icons">grade</i>Exito
+          </a>
       </div>
     );
   }

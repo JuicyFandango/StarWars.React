@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Button, Icon, Collection} from 'react-materialize';
 import './index.css';
 import Galaxia from './componentes/galaxia'
 import ListaJedi from './componentes/listaJedi'
@@ -108,7 +109,23 @@ class App extends React.Component {
 
   render() {
     return (
+ <div className="App">
+        <nav className="black">
+    <div className="nav-wrapper">
+       <img width="100" height="85" src="https://www.merchoid.com/wp-content/uploads/2016/02/xreflogo-starwars.jpg.pagespeed.ic.-cU0EJSd2O.jpg" className="App-logo" alt="logo" />
+      <ul id="nav-mobile" className="right hide-on-med-and-down">
+     
+        <li><a href="badges.html">React</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+       <div className="container">
+         <div className="row"> 
       <container>
+        <br/>
         <ListaJedi
           jedis={this.state.jedis}
           moverJedi={this._moverJedi}
@@ -118,8 +135,11 @@ class App extends React.Component {
           planetas={this.state.planetas}
           moverJedi={this._moverJedi}
           transferirJedi={this._transferirJedi}
-        />
+        /> 
       </container>
+      </div>
+      </div>
+      </div>
     );
   }
 }
