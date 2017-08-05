@@ -6,6 +6,7 @@ class ListaJedi extends React.Component {
     super(props);
     this._transferirJedi = this._transferirJedi.bind(this);
     this._permitirArrastre = this._permitirArrastre.bind(this);
+    this._manejarArrastre = this._manejarArrastre.bind(this);
   }
 
   _permitirArrastre(e) {
@@ -16,12 +17,16 @@ class ListaJedi extends React.Component {
     this.props.transferirJedi({tipo:'lista'})
   }
 
+  _manejarArrastre(jedi) {
+    this.props.moverJedi({jedi:jedi, lugar:'lista'});
+  }
+
   render(){
     const jedis = this.props.jedis.map( (jedi) => {
       return (
         <li key={jedi.id}>
           <Jedi
-            moverJedi={this.props.moverJedi}
+            manejarArrastre={this._manejarArrastre}
             jedi={jedi}
           />
         </li>

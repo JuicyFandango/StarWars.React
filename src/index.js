@@ -49,7 +49,6 @@ class App extends React.Component {
 
   _moverJedi(arrastre) {
     this.setState({ arrastre : arrastre });
-    console.log(arrastre)
   }
 
   _transferirJedi(componente){
@@ -62,26 +61,34 @@ class App extends React.Component {
     switch (componente.tipo) {
       case 'lista':
         {
-          const indicePlaneta = planetas.findIndex( planeta => planeta.jedi === this.state.arrastre );
+          if(this.state.arrastre.lugar === 'lista') {
+            break;
+          }
+          const indicePlaneta = planetas.findIndex( planeta => planeta.jedi === this.state.arrastre.jedi );
           planetas[indicePlaneta].jedi = null;
-          jedis.push(this.state.arrastre);
-          this.setState({planetas: planetas, jedis:jedis, arrastre:null});
-        }
-        break;
-
-      case 'planeta':
-        {
-          const indiceJedi = jedis.indexOf(this.state.arrastre);
-          jedis.splice(indiceJedi, 1);
-          const indicePlaneta = planetas.findIndex( planeta => planeta.nombre === componente.nombre );
-          planetas[indicePlaneta].jedi = this.state.arrastre;
+          jedis.push(this.state.arrastre.jedi);
           this.setState({planetas: planetas, jedis:jedis, arrastre:null});
         }
         break;
 
       default:
-        this.setState({arrastre:null});
-        return;
+        {
+          if(this.state.arrastre.lugar === componente.nombre) {
+            break;
+          }
+          const indicePlanetaArrastre = planetas.findIndex( planeta => planeta.nombre === this.state.arrastre.lugar );
+          
+          if(indicePlanetaArrastre !== -1) {
+            planetas[indicePlanetaArrastre].jedi = null;
+          } else {
+            const indiceJedi = jedis.indexOf(this.state.arrastre);
+            jedis.splice(indiceJedi, 1);
+          }
+          const indicePlaneta = planetas.findIndex( planeta => planeta.nombre === componente.nombre );
+          planetas[indicePlaneta].jedi = this.state.arrastre.jedi;
+          this.setState({planetas: planetas, jedis:jedis, arrastre:null});
+        }
+        break;
     }
   }
 

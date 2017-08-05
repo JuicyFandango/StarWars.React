@@ -6,6 +6,7 @@ class Planeta extends React.Component {
     super(props);
     this._transferirJedi = this._transferirJedi.bind(this);
     this._permitirArrastre = this._permitirArrastre.bind(this);
+    this._manejarArrastre = this._manejarArrastre.bind(this);
   }
 
   _permitirArrastre(e) {
@@ -14,6 +15,10 @@ class Planeta extends React.Component {
 
   _transferirJedi() {
     this.props.transferirJedi({tipo:'planeta', nombre:this.props.planeta.nombre})
+  }
+
+  _manejarArrastre(jedi) {
+    this.props.moverJedi({jedi:jedi, lugar:this.props.planeta.nombre});
   }
 
   render() {
@@ -28,7 +33,7 @@ class Planeta extends React.Component {
         {jedi ? (
           <Jedi
             jedi={this.props.planeta.jedi}
-            moverJedi={this.props.moverJedi}
+            manejarArrastre={this._manejarArrastre}
           />
         ) : (
           <a>Vacío</a>

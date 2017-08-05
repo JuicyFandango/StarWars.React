@@ -8,7 +8,7 @@ class Jedi extends React.Component {
   }
 
   _arrastrarJedi(event) {
-    this.props.moverJedi(this.props.jedi);
+    this.props.manejarArrastre(this.props.jedi);
   }
 
   render() {
