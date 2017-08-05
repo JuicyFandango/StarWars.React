@@ -12,6 +12,8 @@ class App extends React.Component {
     this._obtenerPlanetas = this._obtenerPlanetas.bind(this);
     this._moverJedi = this._moverJedi.bind(this);
     this._botarJedi = this._botarJedi.bind(this);
+    this._transferirJedi = this._transferirJedi.bind(this);
+    this._permitirArrastre = this._permitirArrastre.bind(this);
 
     this.state = {
       jedis : [],
@@ -42,8 +44,14 @@ class App extends React.Component {
     this.setState({ planetas : planetas });
   }
 
-  _botarJedi(e){
+  _permitirArrastre(e) {
+    e.preventDefault();
+  }
+
+  _botarJedi(e) {
+    console.log('aa')
     this._transferirJedi(null);
+
   }
 
   _moverJedi(arrastre) {
@@ -51,13 +59,17 @@ class App extends React.Component {
     console.log(arrastre)
   }
 
-  _transefrirJedi(componente){
+  _transferirJedi(componente){
+    if(!componente) {
+      this.setState({arrastre:null});
+      return;
+    }
+
     let jedis = this.state.jedis;
     let planetas = this.state.planetas;
-
     switch (componente.tipo) {
       case 'lista':
-        //planetas.find( planeta => planeta === );
+        planetas.findIndex( planeta => planeta.jedi === this.state.jedi );
         jedis.push(this.state.arrastre);
         this.setState({planetas: planetas, jedis:jedis, arrastre:null});
         break;
@@ -68,10 +80,6 @@ class App extends React.Component {
         const indicePlaneta = planetas.indexOf(componente.nombre);
         planetas[indicePlaneta].jedi = this.arrastre;
         this.setState({planetas: planetas, jedis:jedis, arrastre:null});
-        break;
-
-      default:
-        console.log('jedi botado')
         break;
     }
   }
@@ -84,12 +92,13 @@ class App extends React.Component {
   render() {
     return (
       <container
-        onDragStop={this._botarJedi}
+        onDragOver={this._permitirArrastre}
+        onDrop={this._botarJedi}
       >
         <ListaJedi
           jedis={this.state.jedis}
           moverJedi={this._moverJedi}
-          transferirJedi={this._transefrirJedi}
+          transferirJedi={this._transferirJedi}
         />
         <Galaxia
           planetas={this.state.planetas}
